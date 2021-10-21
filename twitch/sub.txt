@@ -1,0 +1,20 @@
+# https://dev.twitch.tv/docs/eventsub
+
+POST https://api.twitch.tv/helix/eventsub/subscriptions
+----
+Client-ID:     crq72vsaoijkc83xx42hz6i37
+Authorization: Bearer C0BIYxs4JvnBWqvAmBvjfFc
+Content-Type: application/json
+----
+{
+    "type": "channel.follow",
+    "version": "1",
+    "condition": {
+        "broadcaster_user_id": "12826"
+    },
+    "transport": {
+        "method": "webhook",
+        "callback": "https://example.com/webhooks/callback", // This is the ngrok callback url
+        "secret": "s3cRe7"
+    }
+}
