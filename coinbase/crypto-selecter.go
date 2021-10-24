@@ -36,9 +36,21 @@ type Crypto struct {
 	Collection []Product
 }
 
-func cryptoPicker() Product {
+func CryptoPicker() Product {
 	// API call to get list of Crypto products
-	resp, err := http.Get("https://api-public.sandbox.pro.coinbase.com/products")
+	client := http.Client{
+		Transport:     nil,
+		CheckRedirect: nil,
+		Jar:           nil,
+		Timeout:       0,
+	}
+	url := "https://api-public.sandbox.pro.coinbase.com/products"
+	request, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	resp, err := client.Do(request)
 	if err != nil {
 		log.Fatalln(err)
 	}

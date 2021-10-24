@@ -11,9 +11,9 @@ func Invest()  {
 
 	// Place the order on Coinbase Pro
 	order := coinbasepro.Order{
-		Funds:     cryptoPicker().MinMarketFunds,
+		Funds:     CryptoPicker().MinMarketFunds,
 		Side:      "buy",
-		ProductID: cryptoPicker().Id,
+		ProductID: CryptoPicker().Id,
 		Type:      "market",
 	}
 
@@ -23,7 +23,7 @@ func Invest()  {
 	}
 
 	// Print the Crypto asset that was purchased
-	fmt.Println(cryptoPicker().Id)
+	fmt.Println(CryptoPicker().Id)
 
 	// Print the Order ID
 	fmt.Printf("Order ID: %s", savedOrder.ID)
