@@ -1,15 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"twitch-investo-bot/coinbase"
+	"net/http"
+	S "twitch-investo-bot/webserver"
 )
 
 func main()  {
-	//srv := S.NewServer()
-	//http.ListenAndServe(":80", srv)
+	srv := S.NewServer()
+	http.ListenAndServe(":80", srv)
 
-	coinbase.CryptoPicker()
-
-	fmt.Println(coinbase.CryptoPicker().Id)
+	//coinbase.CryptoPicker()
+	//
+	//fmt.Println(coinbase.CryptoPicker().Id)
 }
