@@ -1,0 +1,19 @@
+mode: set
+twitch-investo-bot/coinbase/crypto-investor.go:8.16,21.16 4 0
+twitch-investo-bot/coinbase/crypto-investor.go:26.2,29.43 2 0
+twitch-investo-bot/coinbase/crypto-investor.go:21.16,23.3 1 0
+twitch-investo-bot/coinbase/crypto-selecter.go:48.13,50.2 1 1
+twitch-investo-bot/coinbase/crypto-selecter.go:52.39,55.16 3 1
+twitch-investo-bot/coinbase/crypto-selecter.go:59.2,60.16 2 1
+twitch-investo-bot/coinbase/crypto-selecter.go:64.2,65.20 2 1
+twitch-investo-bot/coinbase/crypto-selecter.go:69.2,72.26 3 1
+twitch-investo-bot/coinbase/crypto-selecter.go:55.16,57.3 1 0
+twitch-investo-bot/coinbase/crypto-selecter.go:60.16,62.3 1 1
+twitch-investo-bot/coinbase/crypto-selecter.go:65.20,67.3 1 0
+twitch-investo-bot/coinbase/crypto-selecter.go:76.29,82.29 3 0
+twitch-investo-bot/coinbase/crypto-selecter.go:89.2,91.32 2 0
+twitch-investo-bot/coinbase/crypto-selecter.go:99.2,104.13 4 0
+twitch-investo-bot/coinbase/crypto-selecter.go:82.29,83.27 1 0
+twitch-investo-bot/coinbase/crypto-selecter.go:83.27,85.4 1 0
+twitch-investo-bot/coinbase/crypto-selecter.go:91.32,92.47 1 0
+twitch-investo-bot/coinbase/crypto-selecter.go:92.47,94.4 1 0

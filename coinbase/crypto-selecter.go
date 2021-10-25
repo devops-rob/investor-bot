@@ -36,23 +36,29 @@ type Crypto struct {
 	Collection []Product
 }
 
-func CryptoPicker() Product {
-	// API call to get list of Crypto products
-	client := http.Client{
-		Transport:     nil,
-		CheckRedirect: nil,
-		Jar:           nil,
-		Timeout:       0,
-	}
+// HTTPClient interface
+type HTTPClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
+var (
+	Client HTTPClient
+)
+
+func init() {
+	Client = &http.Client{}
+}
+
+func ProductBook() ([]Product, error) {
 	url := "https://api-public.sandbox.pro.coinbase.com/products"
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, err
 	}
 
-	resp, err := client.Do(request)
+	resp, err := Client.Do(request)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, err
 	}
 
 	body, readErr := ioutil.ReadAll(resp.Body)
@@ -60,34 +66,49 @@ func CryptoPicker() Product {
 		log.Fatal(readErr)
 	}
 
-	// Unmarshal json response into Product struct
 	cryptoAssets := make([]Product,0)
 	json.Unmarshal(body, &cryptoAssets)
 
+	return cryptoAssets, nil
+
+}
+
+func OnlineFilter() []Product  {
 	// Filter assets for online trading status
 	var onlineAsset []Product
 
-	for _, v := range cryptoAssets {
+	products, _ := ProductBook()
+
+	for _, v := range products {
 		if v.Status == "online" {
 			onlineAsset = append(onlineAsset, v)
 		}
 	}
 
+	return onlineAsset
+
+}
+
+func CurrencyFilter() []Product {
 	// Filter online assets for USD quote currency
 	var usdAsset []Product
 
-	for _, v := range onlineAsset {
+	for _, v := range OnlineFilter() {
 		if strings.Contains(v.QuoteCurrency, "USD") {
 			usdAsset = append(usdAsset, v)
 		}
 	}
+	return usdAsset
+}
+
+func CryptoPicker() Product {
 
 	// Randomly select asset to buy from filtered slice
 
 	rand.Seed(time.Now().Unix())
 
-	chosenAsset := rand.Intn(len(usdAsset))
-	pick := usdAsset[chosenAsset]
+	chosenAsset := rand.Intn(len(CurrencyFilter()))
+	pick := CurrencyFilter()[chosenAsset]
 
 	return pick
 }
