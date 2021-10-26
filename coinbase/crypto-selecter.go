@@ -67,7 +67,10 @@ func ProductBook() ([]Product, error) {
 	}
 
 	cryptoAssets := make([]Product,0)
-	json.Unmarshal(body, &cryptoAssets)
+	err = json.Unmarshal(body, &cryptoAssets)
+	if err != nil {
+		return nil, err
+	}
 
 	return cryptoAssets, nil
 

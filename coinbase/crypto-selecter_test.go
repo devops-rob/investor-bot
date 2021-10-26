@@ -37,7 +37,7 @@ func TestProductBookFail(t *testing.T) {
 		return &http.Response{
 			StatusCode: 404,
 			Body:       nil,
-		}, errors.New("Mock Error")
+		}, errors.New("mock error")
 	}
 
 	_, err := ProductBook()
