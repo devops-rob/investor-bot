@@ -128,7 +128,6 @@ func (s *Server) twitchCallback() http.HandlerFunc {
 
 		if r.Header.Get("Twitch-Eventsub-Message-Type") == "notification" {
 
-			w.WriteHeader(http.StatusOK)
 			log.Printf("%s notification received from %s. Message ID: %s",
 				r.Header.Get("Twitch-Eventsub-Subscription-Type"),
 				c.Event.UserId,

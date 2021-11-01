@@ -36,11 +36,29 @@ type Crypto struct {
 	Collection []Product
 }
 
-func cryptoPicker() Product {
-	// API call to get list of Crypto products
-	resp, err := http.Get("https://api-public.sandbox.pro.coinbase.com/products")
+// HTTPClient interface
+type HTTPClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
+var (
+	Client HTTPClient
+)
+
+func init() {
+	Client = &http.Client{}
+}
+
+func ProductBook() ([]Product, error) {
+	url := "https://api-public.sandbox.pro.coinbase.com/products"
+	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, err
+	}
+
+	resp, err := Client.Do(request)
+	if err != nil {
+		return nil, err
 	}
 
 	body, readErr := ioutil.ReadAll(resp.Body)
@@ -48,34 +66,53 @@ func cryptoPicker() Product {
 		log.Fatal(readErr)
 	}
 
-	// Unmarshal json response into Product struct
 	cryptoAssets := make([]Product,0)
-	json.Unmarshal(body, &cryptoAssets)
+	err = json.Unmarshal(body, &cryptoAssets)
+	if err != nil {
+		return nil, err
+	}
 
+	return cryptoAssets, nil
+
+}
+
+func OnlineFilter(products []Product) []Product  {
 	// Filter assets for online trading status
 	var onlineAsset []Product
 
-	for _, v := range cryptoAssets {
+	//products, _ := ProductBook()
+
+	for _, v := range products {
 		if v.Status == "online" {
 			onlineAsset = append(onlineAsset, v)
 		}
 	}
 
+	return onlineAsset
+
+}
+
+func CurrencyFilter(products []Product, currency string) []Product {
 	// Filter online assets for USD quote currency
 	var usdAsset []Product
 
-	for _, v := range onlineAsset {
-		if strings.Contains(v.QuoteCurrency, "USD") {
+	// introduce a var called product as an array
+	for _, v := range products {
+		if strings.Contains(v.QuoteCurrency, currency) {
 			usdAsset = append(usdAsset, v)
 		}
 	}
+	return usdAsset
+}
+
+func CryptoPicker(products []Product) Product {
 
 	// Randomly select asset to buy from filtered slice
 
 	rand.Seed(time.Now().Unix())
 
-	chosenAsset := rand.Intn(len(usdAsset))
-	pick := usdAsset[chosenAsset]
+	chosenAsset := rand.Intn(len(products))
+	pick := products[chosenAsset]
 
 	return pick
 }

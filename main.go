@@ -6,7 +6,6 @@ import (
 )
 
 func main()  {
-	//coinbase.Invest()
 	srv := S.NewServer()
 	http.ListenAndServe(":80", srv)
 }
