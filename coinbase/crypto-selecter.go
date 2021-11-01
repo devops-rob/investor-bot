@@ -76,11 +76,11 @@ func ProductBook() ([]Product, error) {
 
 }
 
-func OnlineFilter() []Product  {
+func OnlineFilter(products []Product) []Product  {
 	// Filter assets for online trading status
 	var onlineAsset []Product
 
-	products, _ := ProductBook()
+	//products, _ := ProductBook()
 
 	for _, v := range products {
 		if v.Status == "online" {
@@ -92,26 +92,27 @@ func OnlineFilter() []Product  {
 
 }
 
-func CurrencyFilter() []Product {
+func CurrencyFilter(products []Product, currency string) []Product {
 	// Filter online assets for USD quote currency
 	var usdAsset []Product
 
-	for _, v := range OnlineFilter() {
-		if strings.Contains(v.QuoteCurrency, "USD") {
+	// introduce a var called product as an array
+	for _, v := range products {
+		if strings.Contains(v.QuoteCurrency, currency) {
 			usdAsset = append(usdAsset, v)
 		}
 	}
 	return usdAsset
 }
 
-func CryptoPicker() Product {
+func CryptoPicker(products []Product) Product {
 
 	// Randomly select asset to buy from filtered slice
 
 	rand.Seed(time.Now().Unix())
 
-	chosenAsset := rand.Intn(len(CurrencyFilter()))
-	pick := CurrencyFilter()[chosenAsset]
+	chosenAsset := rand.Intn(len(products))
+	pick := products[chosenAsset]
 
 	return pick
 }
