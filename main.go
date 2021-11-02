@@ -1,11 +1,17 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 	S "twitch-investo-bot/webserver"
 )
 
 func main()  {
 	srv := S.NewServer()
-	http.ListenAndServe(":80", srv)
+	
+	fmt.Printf("Starting server at: http://localhost:3000\n")
+	if err := http.ListenAndServe(":3000", srv); err != nil {
+		log.Fatal(err)
+	}
 }
