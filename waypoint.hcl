@@ -42,7 +42,6 @@ config {
   }
 }
 
-# app Stanza
 # https://www.waypointproject.io/docs/waypoint-hcl/app
 app "investor-bot" {
   labels = {
@@ -50,7 +49,6 @@ app "investor-bot" {
     "env"     = "dev"
   }
 
-  # Describes how to build this application during `waypoint up` or `waypoint build`
   # https://www.waypointproject.io/docs/waypoint-hcl/build
   build {
     use "pack" {}
@@ -62,6 +60,7 @@ app "investor-bot" {
     }
   }
 
+  # https://www.waypointproject.io/docs/waypoint-hcl/deploy
   deploy {
     use "kubernetes" {
       namespace    = var.namespace
@@ -70,6 +69,7 @@ app "investor-bot" {
     }
   }
 
+  # https://www.waypointproject.io/docs/waypoint-hcl/release
   release {
     use "kubernetes" {
       namespace     = var.namespace
