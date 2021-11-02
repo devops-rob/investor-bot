@@ -63,9 +63,16 @@ func NewServer() *Server  {
 }
 
 func (s *Server) routes() {
+	s.HandleFunc("/", s.rootCallback()).Methods("GET")
 	s.HandleFunc("/twitch-callback", s.twitchCallback()).Methods("POST")
 }
 
+func (s *Server) rootCallback() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("{\"message\":\"Welcome to the Twitch Investo-bot!\"}"))
+	}
+}
 
 func (s *Server) twitchCallback() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
