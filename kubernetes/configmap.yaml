@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coinbase
+data:
+  secret: ""
+  baseurl: "https://api-public.sandbox.pro.coinbase.com"
+  sandbox: "1"
+  passphrase: ""
+  key: ""
