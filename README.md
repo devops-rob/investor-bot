@@ -10,3 +10,4 @@ The video below explains the concept in more detail.
 
 The below diagram is a high level events workflow for this application.
 
+![Blank diagram (10)](https://user-images.githubusercontent.com/25905997/140051721-b025aac3-fc89-4128-8e50-5ec2ca0ab30d.png)
